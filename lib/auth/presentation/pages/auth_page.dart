@@ -4,9 +4,14 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:german_erp/auth/presentation/widgets/auth_field_widget.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+  TextEditingController email = TextEditingController();
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController repassword = TextEditingController();
+  AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,16 @@ class AuthPage extends StatelessWidget {
                     ? 500
                     : MediaQuery.sizeOf(context).width,
                 child: Column(
-                  children: [Image.asset("assets/images/logo.png")],
+                  children: [
+                    Image.asset("assets/images/logo.png"),
+                    AuthFieldWidget(
+                      controller: username,
+                      hint: "user name",
+                    ),
+                    AuthFieldWidget(controller: email, hint: "email"),
+                    AuthFieldWidget(controller: password, hint: "password"),
+                    AuthFieldWidget(controller: repassword, hint: "password")
+                  ],
                 )),
           )),
     ));

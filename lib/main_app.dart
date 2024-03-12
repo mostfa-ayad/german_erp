@@ -7,6 +7,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AuthPage();
+    return AuthPage();
   }
 }
