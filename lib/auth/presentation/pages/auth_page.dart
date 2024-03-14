@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:german_erp/auth/presentation/widgets/auth_field_widget.dart';
 import 'package:german_erp/global/widgets/app_custom_text_widget.dart';
+import 'package:german_erp/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -82,7 +84,14 @@ class _AuthPageState extends State<AuthPage> {
                       height: 10.h,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (isLogin) {
+                          await signin(email.text, password.text);
+                        } else {
+                          await signup(
+                              email.text, password.text, username.text);
+                        }
+                      },
                       child: AppCustomTextWidget(
                           text: (isLogin) ? "login".tr() : "register".tr()),
                     ),
@@ -107,5 +116,22 @@ class _AuthPageState extends State<AuthPage> {
                 text: (isLogin) ? "register_msg".tr() : "login_msg".tr()))
       ],
     );
+  }
+
+  signup(String email, String password, String name) async {
+    final res = await supabase.client.auth
+        .signUp(email: email, password: password, data: {"user_name": name});
+    final Session? session = res.session;
+    final User? user = res.user;
+  }
+
+  signin(
+    String email,
+    String password,
+  ) async {
+    final res = await supabase.client.auth
+        .signInWithPassword(email: email, password: password);
+    final Session? session = res.session;
+    final User? user = res.user;
   }
 }
