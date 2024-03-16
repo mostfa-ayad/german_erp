@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:german_erp/main_app.dart';
+import 'package:german_erp/homepage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -33,29 +34,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var font = GoogleFonts.notoKufiArabicTextTheme.call();
     //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
-    return ScreenUtilInit(
-      designSize: const Size(400, 900),
+    return const ScreenUtilInit(
+      designSize: Size(400, 900),
       minTextAdapt: true,
       splitScreenMode: true,
       // Use builder only if you need to use library outside ScreenUtilInit context
-      builder: (_, child) {
-        return MaterialApp(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: const Locale('ar'),
-          debugShowCheckedModeBanner: false,
-          title: 'First Method',
-          // You can use the library anywhere in the app even in theme
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: font.copyWith().apply(),
-          ),
-          home: child,
-        );
-      },
-      child: const MainApp(),
+
+      child: MainApp(),
     );
   }
 }

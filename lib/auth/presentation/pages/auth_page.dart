@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:german_erp/auth/presentation/pages/cubit/auth_cubit.dart';
 import 'package:german_erp/auth/presentation/widgets/auth_field_widget.dart';
 import 'package:german_erp/global/widgets/app_custom_text_widget.dart';
 import 'package:german_erp/main.dart';
@@ -30,6 +32,7 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<AuthCubit>(context);
     return Scaffold(
         body: Center(
       child: Padding(
@@ -86,9 +89,9 @@ class _AuthPageState extends State<AuthPage> {
                     ElevatedButton(
                       onPressed: () async {
                         if (isLogin) {
-                          await signin(email.text, password.text);
+                          await cubit.signin(email.text, password.text);
                         } else {
-                          await signup(
+                          await cubit.signup(
                               email.text, password.text, username.text);
                         }
                       },
@@ -116,22 +119,5 @@ class _AuthPageState extends State<AuthPage> {
                 text: (isLogin) ? "register_msg".tr() : "login_msg".tr()))
       ],
     );
-  }
-
-  signup(String email, String password, String name) async {
-    final res = await supabase.client.auth
-        .signUp(email: email, password: password, data: {"user_name": name});
-    final Session? session = res.session;
-    final User? user = res.user;
-  }
-
-  signin(
-    String email,
-    String password,
-  ) async {
-    final res = await supabase.client.auth
-        .signInWithPassword(email: email, password: password);
-    final Session? session = res.session;
-    final User? user = res.user;
   }
 }

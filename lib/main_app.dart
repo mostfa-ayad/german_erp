@@ -1,26 +1,35 @@
-import 'package:flutter/widgets.dart';
-import 'package:german_erp/auth/presentation/pages/auth_page.dart';
-import 'package:german_erp/dashboard/pages/dashboard.dart';
-import 'package:german_erp/main.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:german_erp/auth/presentation/pages/cubit/auth_cubit.dart';
+import 'package:german_erp/homepage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: supabase.client.auth.onAuthStateChange,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data!.session == null) {
-            return const AuthPage();
-          } else {
-            return const Dashboard();
-          }
-        } else {
-          return const AuthPage();
-        }
-      },
+    var font = GoogleFonts.notoKufiArabicTextTheme.call();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit(),
+        )
+      ],
+      child: MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: const Locale('ar'),
+        debugShowCheckedModeBanner: false,
+        title: 'First Method',
+        // You can use the library anywhere in the app even in theme
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          textTheme: font.copyWith().apply(),
+        ),
+        home: const Homepage(),
+      ),
     );
   }
 }
