@@ -11,4 +11,5 @@ abstract class AuthRepository {
     String email,
     String password,
   );
+  Future<Either<Failure, Unit>> signout();
 }

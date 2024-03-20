@@ -29,4 +29,14 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(Failure(msg: e.msg));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> signout() async {
+    try {
+      await datasource.signout();
+      return const Right(unit);
+    } on ServerException catch (e) {
+      return Left(Failure(msg: e.msg));
+    }
+  }
 }

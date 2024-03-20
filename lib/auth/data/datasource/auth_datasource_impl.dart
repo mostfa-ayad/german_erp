@@ -9,6 +9,7 @@ abstract class AuthDatasource {
     String email,
     String password,
   );
+  Future<Unit> signout();
 }
 
 class AuthDatasourceImpl implements AuthDatasource {
@@ -32,6 +33,16 @@ class AuthDatasourceImpl implements AuthDatasource {
     try {
       await supabase.client.auth
           .signInWithPassword(email: email, password: password);
+      return Future.value(unit);
+    } on Exception catch (e) {
+      throw ServerException(msg: e.toString());
+    }
+  }
+
+  @override
+  Future<Unit> signout() async {
+    try {
+      await supabase.client.auth.signOut();
       return Future.value(unit);
     } on Exception catch (e) {
       throw ServerException(msg: e.toString());
