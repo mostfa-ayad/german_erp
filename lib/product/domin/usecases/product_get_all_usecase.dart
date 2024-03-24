@@ -9,7 +9,7 @@ class ProductGetallUsecase {
   ProductGetallUsecase({
     required this.repository,
   });
-  Future<Either<Failure, List<ProductModel>>> call(int id) async {
+  Future<Either<Failure, List<ProductModel>>> call() async {
     return await repository.getAllProducts();
   }
 }

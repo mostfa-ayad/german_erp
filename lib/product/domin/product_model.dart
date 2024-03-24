@@ -7,7 +7,7 @@ class ProductModel extends Equatable {
   int id;
   String name;
   String description;
-  int createdAt;
+  String createdAt;
 
   ProductModel({
     required this.id,
@@ -20,7 +20,7 @@ class ProductModel extends Equatable {
     int? id,
     String? name,
     String? description,
-    int? createdAt,
+    String? createdAt,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -46,7 +46,7 @@ class ProductModel extends Equatable {
       id: map['id'] as int,
       name: map['name'] as String,
       description: map['description'] as String,
-      createdAt: map['createdAt'] as int,
+      createdAt: map['created_at'] as String,
     );
   }
 

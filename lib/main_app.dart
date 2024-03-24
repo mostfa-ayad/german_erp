@@ -9,6 +9,10 @@ import 'package:german_erp/auth/domin/usecases/signout_usecase.dart';
 import 'package:german_erp/auth/domin/usecases/signup_with_email_and_password_usecase.dart.dart';
 import 'package:german_erp/auth/presentation/pages/cubit/auth_cubit.dart';
 import 'package:german_erp/homepage.dart';
+import 'package:german_erp/product/data/product_datasource_impl.dart';
+import 'package:german_erp/product/data/product_repository_impl.dart';
+import 'package:german_erp/product/domin/usecases/product_get_all_usecase.dart';
+import 'package:german_erp/product/presentation/product_cubit/product_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainApp extends StatelessWidget {
@@ -26,6 +30,12 @@ class MainApp extends StatelessWidget {
               SigninWithEmailAndPasswordUsecase(repository: authRepository),
               SignupWithEmailAndPasswordUsecase(repository: authRepository),
               SignoutUsecase(repository: authRepository)),
+        ),
+        BlocProvider(
+          create: (context) => ProductCubit(ProductGetallUsecase(
+              repository:
+                  ProductRepositoryImpl(datasource: ProductDatasourceImpl())))
+            ..loadList(),
         )
       ],
       child: MaterialApp(
