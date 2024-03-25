@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:german_erp/global/failure.dart';
+import 'package:german_erp/core/failure.dart';
 import 'package:german_erp/main.dart';
 
 abstract class AuthDatasource {

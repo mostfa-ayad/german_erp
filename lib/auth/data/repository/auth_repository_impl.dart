@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:german_erp/auth/data/datasource/auth_datasource_impl.dart';
 import 'package:german_erp/auth/domin/repository/auth_repository.dart';
-import 'package:german_erp/global/failure.dart';
+import 'package:german_erp/core/failure.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthDatasource datasource;

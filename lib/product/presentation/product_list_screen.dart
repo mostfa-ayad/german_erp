@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:german_erp/core/widgets/show_app_snack_bar.dart';
 import 'package:german_erp/product/domin/product_model.dart';
 import 'package:german_erp/product/presentation/product_cubit/product_cubit.dart';
+import 'package:german_erp/product/presentation/product_form_screen.dart';
+import 'package:german_erp/product/presentation/widgets/product_card.dart';
 
 class ProductListScreen extends StatelessWidget {
   const ProductListScreen({super.key});
@@ -13,7 +16,15 @@ class ProductListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("List"),
       ),
-      body: BlocBuilder<ProductCubit, ProductState>(
+      body: BlocConsumer<ProductCubit, ProductState>(
+        listener: (context, state) {
+          if (state is ProductErrorState) {
+            showAppSnackBar(context, state.msg);
+          } else if (state is ProductActionState) {
+            showAppSnackBar(context, state.msg);
+            Navigator.pop(context);
+          }
+        },
         builder: (context, state) {
           if (state is ProductListState) {
             return ListView.builder(
@@ -21,7 +32,7 @@ class ProductListScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 if (state.list.isNotEmpty) {
                   ProductModel product = state.list[index];
-                  return Text("name : ${product.name}");
+                  return ProductCard(product: product);
                 } else {
                   return const Center(
                     child: Text("Empty List"),
@@ -39,6 +50,22 @@ class ProductListScreen extends StatelessWidget {
             );
           }
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductFormScreen(
+                  product: ProductModel.empty(),
+                  editeMode: true,
+                  isNew: true,
+                ),
+              ));
+        },
+        isExtended: true,
+        child: const Icon(Icons.add),
       ),
     );
   }

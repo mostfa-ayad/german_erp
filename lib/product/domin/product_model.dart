@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class ProductModel extends Equatable {
   int id;
   String name;
   String description;
-  String createdAt;
+  DateTime createdAt;
 
   ProductModel({
     required this.id,
@@ -15,12 +16,15 @@ class ProductModel extends Equatable {
     required this.description,
     required this.createdAt,
   });
-
+  factory ProductModel.empty() {
+    return ProductModel(
+        id: 0, name: "", description: "", createdAt: DateTime.now());
+  }
   ProductModel copyWith({
     int? id,
     String? name,
     String? description,
-    String? createdAt,
+    DateTime? createdAt,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -46,7 +50,7 @@ class ProductModel extends Equatable {
       id: map['id'] as int,
       name: map['name'] as String,
       description: map['description'] as String,
-      createdAt: map['created_at'] as String,
+      createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
 

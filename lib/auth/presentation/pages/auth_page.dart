@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:german_erp/auth/presentation/pages/cubit/auth_cubit.dart';
 
 import 'package:german_erp/auth/presentation/widgets/auth_field_widget.dart';
-import 'package:german_erp/global/widgets/app_custom_text_widget.dart';
+import 'package:german_erp/core/widgets/app_text_widget.dart';
 import 'package:german_erp/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -60,8 +60,7 @@ class _AuthPageState extends State<AuthPage> {
           child: Column(
             children: [
               Image.asset("assets/images/logo.png"),
-              AppCustomTextWidget(
-                  text: (isLogin) ? "login".tr() : "register".tr()),
+              AppTextWidget(text: (isLogin) ? "login".tr() : "register".tr()),
               Visibility(
                 visible: !isLogin,
                 child: AuthFieldWidget(
@@ -110,7 +109,7 @@ class _AuthPageState extends State<AuthPage> {
                         email.text, password.text, username.text);
                   }
                 },
-                child: AppCustomTextWidget(
+                child: AppTextWidget(
                     text: (isLogin) ? "login".tr() : "register".tr()),
               ),
               footer()
@@ -129,7 +128,7 @@ class _AuthPageState extends State<AuthPage> {
                 isLogin = !isLogin;
               });
             },
-            child: AppCustomTextWidget(
+            child: AppTextWidget(
                 text: (isLogin) ? "register_msg".tr() : "login_msg".tr()))
       ],
     );

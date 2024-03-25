@@ -23,3 +23,10 @@ class ProductErrorState extends ProductState {
     required this.msg,
   });
 }
+
+class ProductActionState extends ProductState {
+  final String msg;
+  const ProductActionState({
+    required this.msg,
+  });
+}
