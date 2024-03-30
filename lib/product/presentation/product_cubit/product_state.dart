@@ -30,3 +30,10 @@ class ProductActionState extends ProductState {
     required this.msg,
   });
 }
+
+class ProductDeletedState extends ProductState {
+  final String msg;
+  const ProductDeletedState({
+    required this.msg,
+  });
+}

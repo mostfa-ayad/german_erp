@@ -23,23 +23,29 @@ class ProductCubit extends Cubit<ProductState> {
   }) : super(ProductInitial());
   loadList() async {
     emit(ProductInitial());
-    var either = await getallUsecase.call();
+    var either = await getallUsecase();
     either.fold((l) => emit(state), (r) => emit(ProductListState(list: r)));
   }
 
   create(ProductModel product) async {
-    var either = await insertUsecase.call(product);
+    var either = await insertUsecase(product);
     either.fold((l) => emit(ProductErrorState(msg: l.msg)),
         (r) => emit(const ProductActionState(msg: "Created")));
     Future.delayed(const Duration(seconds: 1)).whenComplete(() => loadList());
   }
 
   update(ProductModel product) async {
-    var either = await updateUsecase.call(product);
+    var either = await updateUsecase(product);
     either.fold((l) => emit(ProductErrorState(msg: l.msg)),
         (r) => emit(const ProductActionState(msg: "Updated")));
     Future.delayed(const Duration(seconds: 1)).whenComplete(() => loadList());
   }
 
-  delete(int id) async {}
+  delete(int id) async {
+    var either = await deleteUsecase(id);
+    either.fold((l) {
+      emit(ProductErrorState(msg: l.msg));
+    }, (r) => emit(ProductDeletedState(msg: "Deleted item : $id")));
+    loadList();
+  }
 }

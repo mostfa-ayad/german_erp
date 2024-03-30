@@ -16,40 +16,44 @@ class ProductListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("List"),
       ),
-      body: BlocConsumer<ProductCubit, ProductState>(
-        listener: (context, state) {
-          if (state is ProductErrorState) {
-            showAppSnackBar(context, state.msg);
-          } else if (state is ProductActionState) {
-            showAppSnackBar(context, state.msg);
-            Navigator.pop(context);
-          }
-        },
-        builder: (context, state) {
-          if (state is ProductListState) {
-            return ListView.builder(
-              itemCount: state.list.length,
-              itemBuilder: (context, index) {
-                if (state.list.isNotEmpty) {
-                  ProductModel product = state.list[index];
-                  return ProductCard(product: product);
-                } else {
-                  return const Center(
-                    child: Text("Empty List"),
-                  );
-                }
-              },
-            );
-          } else if (state is ProductErrorState) {
-            return Center(
-              child: Text("ERROR//:${state.msg}"),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: Center(
+        child: BlocConsumer<ProductCubit, ProductState>(
+          listener: (context, state) {
+            if (state is ProductErrorState) {
+              showAppSnackBar(context, state.msg);
+            } else if (state is ProductActionState) {
+              showAppSnackBar(context, state.msg);
+              Navigator.pop(context);
+            } else if (state is ProductDeletedState) {
+              showAppSnackBar(context, state.msg);
+            }
+          },
+          builder: (context, state) {
+            if (state is ProductListState) {
+              return ListView.builder(
+                itemCount: state.list.length,
+                itemBuilder: (context, index) {
+                  if (state.list.isNotEmpty) {
+                    ProductModel product = state.list[index];
+                    return ProductCard(product: product);
+                  } else {
+                    return const Center(
+                      child: Text("Empty List"),
+                    );
+                  }
+                },
+              );
+            } else if (state is ProductErrorState) {
+              return Center(
+                child: Text("ERROR//:${state.msg}"),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
