@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:german_erp/auth/presentation/pages/auth_page.dart';
+import 'package:german_erp/customer/presentation/customer_list_screen.dart';
 import 'package:german_erp/dashboard/pages/dashboard.dart';
 import 'package:german_erp/main.dart';
 import 'package:german_erp/product/presentation/product_list_screen.dart';
@@ -16,7 +17,7 @@ class Homepage extends StatelessWidget {
           if (snapshot.data!.session == null) {
             return const AuthPage();
           } else {
-            return const ProductListScreen();
+            return const CustomerListScreen();
           }
         } else {
           return const AuthPage();
