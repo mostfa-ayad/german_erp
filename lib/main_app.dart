@@ -17,6 +17,11 @@ import 'package:german_erp/core/theme/app_theme.dart';
 import 'package:german_erp/customer/data/customer_datasource_impl.dart';
 import 'package:german_erp/customer/data/customer_repository_impl.dart';
 import 'package:german_erp/customer/presentation/customer_cubit/customer_cubit.dart';
+import 'package:german_erp/customer_service/data/customer_service_datasource_impl.dart';
+import 'package:german_erp/customer_service/data/customer_service_repository_impl.dart';
+import 'package:german_erp/customer_service/domin/customer_service_repository.dart';
+import 'package:german_erp/customer_service/domin/customer_service_usecases.dart';
+import 'package:german_erp/customer_service/presentation/cubit/customer_service_cubit.dart';
 import 'package:german_erp/homepage.dart';
 import 'package:german_erp/product/data/product_datasource_impl.dart';
 import 'package:german_erp/product/data/product_repository_impl.dart';
@@ -39,6 +44,9 @@ class MainApp extends StatelessWidget {
         ProductRepositoryImpl(datasource: ProductDatasourceImpl());
     CustomerRepository customerRepository =
         CustomerRepositoryImpl(datasource: CustomerDatasourceImpl());
+    CustomerServiceRepository customerServiceRepository =
+        CustomerServiceRepositoryImpl(
+            datasource: CustomerServiceDatasourceImpl());
     var font = GoogleFonts.notoKufiArabicTextTheme.call();
     return MultiBlocProvider(
       providers: [
@@ -59,6 +67,18 @@ class MainApp extends StatelessWidget {
               updateUsecase:
                   ProductUpdateUsecase(repository: productRepository))
             ..loadList(),
+        ),
+        BlocProvider(
+          create: (context) => CustomerServiceCubit(
+            getallUsecase:
+                CustomerServiceGetallUsecase(customerServiceRepository),
+            insertUsecase:
+                CustomerServiceInsertUsecase(customerServiceRepository),
+            updateUsecase:
+                CustomerServiceUpdateUsecase(customerServiceRepository),
+            deleteUsecase:
+                CustomerServiceDeleteUsecase(customerServiceRepository),
+          )..loadList(),
         ),
         BlocProvider(
           create: (context) => CustomerCubit(

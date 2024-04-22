@@ -50,6 +50,20 @@ class CustomerServiceModel implements Equatable {
     );
   }
 
+  factory CustomerServiceModel.empty() {
+    return CustomerServiceModel(
+      id: 0,
+      createdAt: DateTime.now(),
+      customerName: '',
+      phone: '',
+      secondaryPhone: '',
+      address: '',
+      description: '',
+      isComplete: false,
+      employeeName: '',
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
