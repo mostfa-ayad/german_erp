@@ -10,6 +10,8 @@ class CustomerServiceDatasourceImpl implements CustomerServiceDatasource {
   Future<List<CustomerServiceModel>> getAll() async {
     try {
       var data = await supabase.client.from(table).select();
+      supabase.client.auth.admin
+          .getUserById(supabase.client.auth.currentUser!.id);
       return data.map((e) => CustomerServiceModel.fromMap(e)).toList();
     } catch (e) {
       throw ServerException(msg: e.toString());

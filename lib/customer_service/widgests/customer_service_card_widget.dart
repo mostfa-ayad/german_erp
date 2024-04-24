@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:german_erp/main.dart';
 
 import '../../../../customer_service/domin/customer_service_model.dart';
 
@@ -15,18 +16,23 @@ class CustomerServiceCardWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Card(
-        color: Colors.blue,
         child: ListTile(
-          title: Text(customerService.customerName ?? ''),
+          title: Text(customerService.customerName),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                customerService.phone ?? '',
-                style: const TextStyle(color: Colors.blueGrey),
+                customerService.phone,
               ),
               Text(
-                customerService.address ?? '',
+                customerService.address,
+              ),
+              FutureBuilder(
+                future: supabase.client.auth.admin
+                    .getUserById(customerService.userId),
+                builder: (context, snapshot) {
+                  return Text(snapshot.data.toString());
+                },
               ),
             ],
           ),

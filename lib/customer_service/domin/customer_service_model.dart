@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 
 class CustomerServiceModel implements Equatable {
   final int id;
+  final String userId; // New field
   final DateTime createdAt;
   final String customerName;
   final String phone;
@@ -16,6 +17,7 @@ class CustomerServiceModel implements Equatable {
 
   CustomerServiceModel({
     required this.id,
+    required this.userId, // New field
     required this.createdAt,
     required this.customerName,
     required this.phone,
@@ -28,6 +30,7 @@ class CustomerServiceModel implements Equatable {
 
   CustomerServiceModel copyWith({
     int? id,
+    String? userId, // New field
     DateTime? createdAt,
     String? customerName,
     String? phone,
@@ -39,6 +42,7 @@ class CustomerServiceModel implements Equatable {
   }) {
     return CustomerServiceModel(
       id: id ?? this.id,
+      userId: userId ?? this.userId, // New field
       createdAt: createdAt ?? this.createdAt,
       customerName: customerName ?? this.customerName,
       phone: phone ?? this.phone,
@@ -53,6 +57,7 @@ class CustomerServiceModel implements Equatable {
   factory CustomerServiceModel.empty() {
     return CustomerServiceModel(
       id: 0,
+      userId: '', // New field
       createdAt: DateTime.now(),
       customerName: '',
       phone: '',
@@ -66,29 +71,29 @@ class CustomerServiceModel implements Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'customerName': customerName,
+      'customer_name': customerName,
       'phone': phone,
-      'secondaryPhone': secondaryPhone,
+      'secondary_phone': secondaryPhone,
       'address': address,
       'description': description,
-      'isComplete': isComplete,
-      'employeeName': employeeName,
+      'is_complete': isComplete,
+      'employee_name': employeeName,
     };
   }
 
   factory CustomerServiceModel.fromMap(Map<String, dynamic> map) {
+    print(map);
     return CustomerServiceModel(
       id: map['id'] as int,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      customerName: map['customerName'] as String,
+      userId: map['user_id'] as String, // New field
+      createdAt: DateTime.parse(map['created_at'] as String),
+      customerName: map['customer_name'] as String,
       phone: map['phone'] as String,
-      secondaryPhone: map['secondaryPhone'] as String,
+      secondaryPhone: map['secondary_phone'] as String,
       address: map['address'] as String,
       description: map['description'] as String,
-      isComplete: map['isComplete'] as bool,
-      employeeName: map['employeeName'] as String,
+      isComplete: map['is_complete'] as bool,
+      employeeName: map['employee_name'] as String,
     );
   }
 
@@ -99,13 +104,14 @@ class CustomerServiceModel implements Equatable {
 
   @override
   String toString() {
-    return 'CustomerServiceModel(id: $id, createdAt: $createdAt, customerName: $customerName, phone: $phone, secondaryPhone: $secondaryPhone, address: $address, description: $description, isComplete: $isComplete, employeeName: $employeeName)';
+    return 'CustomerServiceModel(id: $id, userId: $userId, createdAt: $createdAt, customerName: $customerName, phone: $phone, secondaryPhone: $secondaryPhone, address: $address, description: $description, isComplete: $isComplete, employeeName: $employeeName)';
   }
 
   @override
   // TODO: implement props
   List<Object?> get props => [
         id,
+        userId, // New field
         createdAt,
         customerName,
         phone,

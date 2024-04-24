@@ -20,7 +20,7 @@ class CustomerDatasourceImpl implements CustomerDatasource {
   Future<List<CustomerModel>> getall() async {
     try {
       var data = await supabase.client.from(table).select();
-      print(data);
+
       return data.map((e) => CustomerModel.fromMap(e)).toList();
     } on Exception catch (e) {
       throw ServerException(msg: e.toString());

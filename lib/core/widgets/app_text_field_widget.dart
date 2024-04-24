@@ -6,16 +6,32 @@ class AppTextFieldWidget extends StatelessWidget {
   TextEditingController controller;
   String label;
   bool enabled;
-  AppTextFieldWidget({
-    super.key,
-    required this.controller,
-    required this.label,
-    this.enabled = true,
-  });
+  int lines;
+  bool required;
+  TextInputType? keyboardType;
+
+  AppTextFieldWidget(
+      {super.key,
+      required this.controller,
+      required this.label,
+      this.enabled = true,
+      this.required = false,
+      this.keyboardType = TextInputType.text,
+      this.lines = 1});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
+      validator: (value) {
+        if (required) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter some text';
+          }
+        }
+        return null;
+      },
+      maxLines: lines,
       controller: controller,
       enabled: enabled,
       decoration: InputDecoration(label: Text(label)),

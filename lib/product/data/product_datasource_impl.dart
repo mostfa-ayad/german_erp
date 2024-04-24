@@ -20,7 +20,7 @@ class ProductDatasourceImpl extends ProductDatasource {
   Future<List<ProductModel>> getall() async {
     try {
       var data = await supabase.client.from(table).select();
-      print(data);
+
       return data.map((e) => ProductModel.fromMap(e)).toList();
     } on Exception catch (e) {
       throw ServerException(msg: e.toString());
