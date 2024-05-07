@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +18,6 @@ class CustomerServiceFormScreen extends StatelessWidget {
       address.text = service.address;
       description.text = service.description;
       isComplete.text = service.isComplete.toString();
-      employeeName.text = service.employeeName;
     }
   }
   final form = GlobalKey<FormState>();

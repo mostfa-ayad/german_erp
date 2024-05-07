@@ -16,7 +16,7 @@ class AppTheme {
           error: Colors.redAccent,
           onError: Colors.deepOrangeAccent,
           background: Colors.white,
-          onBackground: Colors.white24,
-          surface: Colors.grey,
+          onBackground: Colors.white,
+          surface: Colors.white,
           onSurface: Colors.indigo));
 }

@@ -1,15 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AuthFieldWidget extends StatelessWidget {
-  TextEditingController controller;
-  IconData prefixIcon;
-  Widget? suffixIcon;
-  String hint;
-  bool isScure;
-  AuthFieldWidget({
+  final TextEditingController controller;
+  final IconData prefixIcon;
+  final Widget? suffixIcon;
+  final String hint;
+  final bool isScure;
+  const AuthFieldWidget({
     super.key,
     required this.controller,
     required this.prefixIcon,

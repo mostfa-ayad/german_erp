@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 
 class DeleteAlertDialog extends StatelessWidget {
-  String title;
+  final String title;
   void Function() onPressed;
   DeleteAlertDialog({
     super.key,
-    required this.onPressed,
     this.title = "Are you sure",
+    required this.onPressed,
   });
 
   @override

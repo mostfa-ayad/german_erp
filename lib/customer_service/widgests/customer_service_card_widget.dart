@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:german_erp/main.dart';
 
 import '../../../../customer_service/domin/customer_service_model.dart';
@@ -26,13 +25,6 @@ class CustomerServiceCardWidget extends StatelessWidget {
               ),
               Text(
                 customerService.address,
-              ),
-              FutureBuilder(
-                future: supabase.client.auth.admin
-                    .getUserById(customerService.userId),
-                builder: (context, snapshot) {
-                  return Text(snapshot.data.toString());
-                },
               ),
             ],
           ),

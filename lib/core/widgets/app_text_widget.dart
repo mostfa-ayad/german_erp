@@ -2,14 +2,21 @@
 import 'package:flutter/material.dart';
 
 class AppTextWidget extends StatelessWidget {
-  String text;
-  AppTextWidget({
+  final String text;
+  final double fontSize;
+  final FontWeight fontWeight;
+  const AppTextWidget({
     super.key,
     required this.text,
+    this.fontSize = 16,
+    this.fontWeight = FontWeight.normal,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text(text);
+    return Text(
+      text,
+      style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
+    );
   }
 }

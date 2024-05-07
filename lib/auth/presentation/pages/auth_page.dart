@@ -6,8 +6,6 @@ import 'package:german_erp/auth/presentation/pages/cubit/auth_cubit.dart';
 
 import 'package:german_erp/auth/presentation/widgets/auth_field_widget.dart';
 import 'package:german_erp/core/widgets/app_text_widget.dart';
-import 'package:german_erp/main.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
