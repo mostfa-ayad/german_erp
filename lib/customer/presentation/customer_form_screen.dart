@@ -19,7 +19,12 @@ class CustomerFormScreen extends StatelessWidget {
     required this.customer,
     this.isNew = true,
     this.editeMode = true,
-  });
+  }) {
+    if (!isNew) {
+      name.text = customer.name;
+      description.text = customer.description;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

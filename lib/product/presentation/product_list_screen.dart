@@ -4,7 +4,7 @@ import 'package:german_erp/core/widgets/show_app_snack_bar.dart';
 import 'package:german_erp/product/domin/product_model.dart';
 import 'package:german_erp/product/presentation/product_cubit/product_cubit.dart';
 import 'package:german_erp/product/presentation/product_form_screen.dart';
-import 'package:german_erp/product/presentation/widgets/product_card.dart';
+import 'package:german_erp/product/presentation/product_table.dart';
 
 class ProductListScreen extends StatelessWidget {
   const ProductListScreen({super.key});
@@ -30,19 +30,7 @@ class ProductListScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is ProductListState) {
               if (state.list.isNotEmpty) {
-                return ListView.builder(
-                  itemCount: state.list.length,
-                  itemBuilder: (context, index) {
-                    if (state.list.isNotEmpty) {
-                      ProductModel product = state.list[index];
-                      return ProductCard(product: product);
-                    } else {
-                      return const Center(
-                        child: Text("Empty List"),
-                      );
-                    }
-                  },
-                );
+                return ProductTable(data: state.list);
               } else {
                 return const Center(
                   child: Text("Empty List"),

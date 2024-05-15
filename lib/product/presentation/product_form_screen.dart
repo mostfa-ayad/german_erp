@@ -19,7 +19,12 @@ class ProductFormScreen extends StatelessWidget {
     required this.product,
     this.isNew = true,
     this.editeMode = true,
-  });
+  }) {
+    if (!isNew) {
+      name.text = product.name;
+      description.text = product.description;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

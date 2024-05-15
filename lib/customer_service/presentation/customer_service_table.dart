@@ -1,17 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:expandable_datatable/expandable_datatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:german_erp/core/app_extintions.dart';
 
 import 'package:german_erp/customer_service/domin/customer_service_model.dart';
+import 'package:german_erp/customer_service/presentation/customer_service_form_screen.dart';
 
 class CustomerServiceTable extends StatelessWidget {
   List<CustomerServiceModel> data;
   late List<ExpandableRow> rows;
+  int columns = 5;
   List<ExpandableColumn<dynamic>> headers = [
     ExpandableColumn<int>(columnTitle: "ID", columnFlex: 1),
     ExpandableColumn(columnTitle: "Customer Name", columnFlex: 2),
-    ExpandableColumn(columnTitle: "Address", columnFlex: 3)
+    ExpandableColumn(columnTitle: "Address", columnFlex: 3),
+    ExpandableColumn(columnTitle: "Phone", columnFlex: 3),
+    ExpandableColumn(columnTitle: "Description", columnFlex: 3)
   ];
   CustomerServiceTable({
     super.key,
@@ -22,7 +26,9 @@ class CustomerServiceTable extends StatelessWidget {
               ExpandableCell(columnTitle: "ID", value: e.id),
               ExpandableCell(
                   columnTitle: "Customer Name", value: e.customerName),
-              ExpandableCell(columnTitle: "Address", value: e.address)
+              ExpandableCell(columnTitle: "Phone", value: e.address),
+              ExpandableCell(columnTitle: "Address", value: e.phone),
+              ExpandableCell(columnTitle: "Description", value: e.phone)
             ]))
         .toList();
   }
@@ -37,10 +43,21 @@ class CustomerServiceTable extends StatelessWidget {
         paginationSize: 48,
       ),
       child: ExpandableDataTable(
-          isEditable: false,
+          renderEditDialog: (row, onSuccess) => CustomerServiceFormScreen(
+              isNew: false,
+              service: CustomerServiceModel(
+                  id: row.cells[0].value,
+                  createdAt: DateTime.now(),
+                  customerName: row.cells[1].value,
+                  phone: "phone",
+                  secondaryPhone: "secondaryPhone",
+                  address: "address",
+                  description: "description",
+                  isComplete: false)),
+          isEditable: true,
           headers: headers,
           rows: rows,
-          visibleColumnCount: 3),
+          visibleColumnCount: (context.width > 600) ? columns : 3),
     );
   }
 }

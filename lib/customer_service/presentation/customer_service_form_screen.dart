@@ -6,6 +6,14 @@ import 'package:german_erp/customer_service/domin/customer_service_model.dart';
 import 'package:german_erp/customer_service/presentation/cubit/customer_service_cubit.dart';
 
 class CustomerServiceFormScreen extends StatelessWidget {
+  final form = GlobalKey<FormState>();
+  final name = TextEditingController();
+  final description = TextEditingController();
+  final phone = TextEditingController();
+  final secondaryPhone = TextEditingController();
+  final address = TextEditingController();
+  final isComplete = TextEditingController();
+  final employeeName = TextEditingController();
   CustomerServiceFormScreen({
     super.key,
     required this.isNew,
@@ -20,14 +28,6 @@ class CustomerServiceFormScreen extends StatelessWidget {
       isComplete.text = service.isComplete.toString();
     }
   }
-  final form = GlobalKey<FormState>();
-  final name = TextEditingController();
-  final description = TextEditingController();
-  final phone = TextEditingController();
-  final secondaryPhone = TextEditingController();
-  final address = TextEditingController();
-  final isComplete = TextEditingController();
-  final employeeName = TextEditingController();
 
   final bool isNew;
   CustomerServiceModel service;

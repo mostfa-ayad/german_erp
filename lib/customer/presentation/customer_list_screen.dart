@@ -4,7 +4,7 @@ import 'package:german_erp/customer/domin/customer_model.dart';
 import 'package:german_erp/core/widgets/show_app_snack_bar.dart';
 import 'package:german_erp/customer/presentation/customer_cubit/customer_cubit.dart';
 import 'package:german_erp/customer/presentation/customer_form_screen.dart';
-import 'package:german_erp/customer/presentation/widgets/customer_card.dart';
+import 'package:german_erp/customer/presentation/customer_table.dart';
 
 class CustomerListScreen extends StatelessWidget {
   const CustomerListScreen({super.key});
@@ -30,19 +30,7 @@ class CustomerListScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is CustomerListState) {
               if (state.list.isNotEmpty) {
-                return ListView.builder(
-                  itemCount: state.list.length,
-                  itemBuilder: (context, index) {
-                    if (state.list.isNotEmpty) {
-                      CustomerModel customer = state.list[index];
-                      return CustomerCard(customer: customer);
-                    } else {
-                      return const Center(
-                        child: Text("Empty List"),
-                      );
-                    }
-                  },
-                );
+                return CustomerTable(data: state.list);
               } else {
                 return const Center(
                   child: Text("Empty List"),
