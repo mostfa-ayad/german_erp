@@ -11,6 +11,15 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          ElevatedButton(
+              onPressed: () async {
+                await supabase.client.auth.signOut();
+              },
+              child: const Text("Log out"))
+        ],
+      ),
       body: Center(
         child: Column(
           children: [
