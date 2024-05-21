@@ -35,11 +35,6 @@ class Dashboard extends StatelessWidget {
                     title: "product", screen: const ProductListScreen())
               ],
             ),
-            ElevatedButton(
-                onPressed: () async {
-                  await supabase.client.auth.signOut();
-                },
-                child: const Text("Log out"))
           ],
         ),
       ),

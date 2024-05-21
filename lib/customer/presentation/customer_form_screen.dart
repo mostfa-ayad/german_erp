@@ -6,23 +6,34 @@ import 'package:german_erp/customer/domin/customer_model.dart';
 import 'package:german_erp/core/widgets/app_text_field_widget.dart';
 import 'package:german_erp/customer/presentation/customer_cubit/customer_cubit.dart';
 
-class CustomerFormScreen extends StatelessWidget {
+class CustomerFormScreen extends StatefulWidget {
   CustomerModel customer;
   bool isNew;
   bool editeMode;
-  //controllers
-  GlobalKey<FormState> form = GlobalKey();
-  TextEditingController name = TextEditingController();
-  TextEditingController description = TextEditingController();
+
   CustomerFormScreen({
     super.key,
     required this.customer,
     this.isNew = true,
     this.editeMode = true,
-  }) {
-    if (!isNew) {
-      name.text = customer.name;
-      description.text = customer.description;
+  });
+
+  @override
+  State<CustomerFormScreen> createState() => _CustomerFormScreenState();
+}
+
+class _CustomerFormScreenState extends State<CustomerFormScreen> {
+  //controllers
+  GlobalKey<FormState> form = GlobalKey();
+
+  TextEditingController name = TextEditingController();
+
+  TextEditingController description = TextEditingController();
+  @override
+  void initState() {
+    if (!widget.isNew) {
+      name.text = widget.customer.name;
+      description.text = widget.customer.description;
     }
   }
 
@@ -31,17 +42,19 @@ class CustomerFormScreen extends StatelessWidget {
     var cubit = BlocProvider.of<CustomerCubit>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text((isNew) ? "Create customer" : "customer id:${customer.id}"),
+        title: Text((widget.isNew)
+            ? "Create customer"
+            : "customer id:${widget.customer.id}"),
         actions: [
           IconButton(
               onPressed: () async {
                 if (form.currentState!.validate()) {
-                  customer.name = name.text;
-                  customer.description = description.text;
-                  if (isNew) {
-                    await cubit.create(customer);
+                  widget.customer.name = name.text;
+                  widget.customer.description = description.text;
+                  if (widget.isNew) {
+                    await cubit.create(widget.customer);
                   } else {
-                    await cubit.update(customer);
+                    await cubit.update(widget.customer);
                   }
                 }
               },

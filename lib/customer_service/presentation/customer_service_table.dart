@@ -15,7 +15,9 @@ class CustomerServiceTable extends StatelessWidget {
     ExpandableColumn(columnTitle: "Customer Name", columnFlex: 2),
     ExpandableColumn(columnTitle: "Address", columnFlex: 3),
     ExpandableColumn(columnTitle: "Phone", columnFlex: 3),
-    ExpandableColumn(columnTitle: "Description", columnFlex: 3)
+    ExpandableColumn(columnTitle: "Secondry Phone", columnFlex: 3),
+    ExpandableColumn(columnTitle: "Description", columnFlex: 3),
+    ExpandableColumn(columnTitle: "Employee Name", columnFlex: 3)
   ];
   CustomerServiceTable({
     super.key,
@@ -27,8 +29,12 @@ class CustomerServiceTable extends StatelessWidget {
               ExpandableCell(
                   columnTitle: "Customer Name", value: e.customerName),
               ExpandableCell(columnTitle: "Phone", value: e.address),
+              ExpandableCell(
+                  columnTitle: "Secondry Phone", value: e.secondaryPhone),
               ExpandableCell(columnTitle: "Address", value: e.phone),
-              ExpandableCell(columnTitle: "Description", value: e.phone)
+              ExpandableCell(columnTitle: "Description", value: e.phone),
+              ExpandableCell(
+                  columnTitle: "Employee Name", value: "employeeName"),
             ]))
         .toList();
   }
@@ -49,10 +55,10 @@ class CustomerServiceTable extends StatelessWidget {
                   id: row.cells[0].value,
                   createdAt: DateTime.now(),
                   customerName: row.cells[1].value,
-                  phone: "phone",
-                  secondaryPhone: "secondaryPhone",
-                  address: "address",
-                  description: "description",
+                  phone: row.cells[2].value,
+                  secondaryPhone: row.cells[3].value,
+                  address: row.cells[4].value,
+                  description: row.cells[5].value,
                   isComplete: false)),
           isEditable: true,
           headers: headers,

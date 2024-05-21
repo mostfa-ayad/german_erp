@@ -5,32 +5,48 @@ import 'package:german_erp/core/widgets/app_text_field_widget.dart';
 import 'package:german_erp/customer_service/domin/customer_service_model.dart';
 import 'package:german_erp/customer_service/presentation/cubit/customer_service_cubit.dart';
 
-class CustomerServiceFormScreen extends StatelessWidget {
-  final form = GlobalKey<FormState>();
-  final name = TextEditingController();
-  final description = TextEditingController();
-  final phone = TextEditingController();
-  final secondaryPhone = TextEditingController();
-  final address = TextEditingController();
-  final isComplete = TextEditingController();
-  final employeeName = TextEditingController();
+class CustomerServiceFormScreen extends StatefulWidget {
   CustomerServiceFormScreen({
     super.key,
     required this.isNew,
     required this.service,
-  }) {
-    if (!isNew) {
-      name.text = service.customerName;
-      phone.text = service.phone;
-      secondaryPhone.text = service.secondaryPhone;
-      address.text = service.address;
-      description.text = service.description;
-      isComplete.text = service.isComplete.toString();
-    }
-  }
+  });
 
   final bool isNew;
   CustomerServiceModel service;
+
+  @override
+  State<CustomerServiceFormScreen> createState() =>
+      _CustomerServiceFormScreenState();
+}
+
+class _CustomerServiceFormScreenState extends State<CustomerServiceFormScreen> {
+  final form = GlobalKey<FormState>();
+
+  final name = TextEditingController();
+
+  final description = TextEditingController();
+
+  final phone = TextEditingController();
+
+  final secondaryPhone = TextEditingController();
+
+  final address = TextEditingController();
+
+  final isComplete = TextEditingController();
+
+  final employeeName = TextEditingController();
+  @override
+  void initState() {
+    if (!widget.isNew) {
+      name.text = widget.service.customerName;
+      phone.text = widget.service.phone;
+      secondaryPhone.text = widget.service.secondaryPhone;
+      address.text = widget.service.address;
+      description.text = widget.service.description;
+      isComplete.text = widget.service.isComplete.toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +54,14 @@ class CustomerServiceFormScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            (isNew) ? "Create customer Service" : "service id:${service.id}"),
+        title: Text((widget.isNew)
+            ? "Create customer Service"
+            : "service id:${widget.service.id}"),
         actions: [
           TextButton(
             onPressed: () {
               if (form.currentState!.validate()) {
-                service = service.copyWith(
+                widget.service = widget.service.copyWith(
                   customerName: name.text,
                   phone: phone.text,
                   secondaryPhone: secondaryPhone.text,
@@ -54,10 +71,10 @@ class CustomerServiceFormScreen extends StatelessWidget {
                   employeeName: employeeName.text,
                 );
 
-                if (isNew) {
-                  cubit.insert(service);
+                if (widget.isNew) {
+                  cubit.insert(widget.service);
                 } else {
-                  cubit.update(service);
+                  cubit.update(widget.service);
                 }
               }
             },

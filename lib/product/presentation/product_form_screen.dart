@@ -6,23 +6,34 @@ import 'package:german_erp/core/widgets/app_text_field_widget.dart';
 import 'package:german_erp/product/domin/product_model.dart';
 import 'package:german_erp/product/presentation/product_cubit/product_cubit.dart';
 
-class ProductFormScreen extends StatelessWidget {
+class ProductFormScreen extends StatefulWidget {
   ProductModel product;
   bool isNew;
   bool editeMode;
-  //controllers
-  GlobalKey<FormState> form = GlobalKey();
-  TextEditingController name = TextEditingController();
-  TextEditingController description = TextEditingController();
+
   ProductFormScreen({
     super.key,
     required this.product,
     this.isNew = true,
     this.editeMode = true,
-  }) {
-    if (!isNew) {
-      name.text = product.name;
-      description.text = product.description;
+  });
+
+  @override
+  State<ProductFormScreen> createState() => _ProductFormScreenState();
+}
+
+class _ProductFormScreenState extends State<ProductFormScreen> {
+  //controllers
+  GlobalKey<FormState> form = GlobalKey();
+
+  TextEditingController name = TextEditingController();
+
+  TextEditingController description = TextEditingController();
+  @override
+  void initState() {
+    if (!widget.isNew) {
+      name.text = widget.product.name;
+      description.text = widget.product.description;
     }
   }
 
@@ -31,17 +42,19 @@ class ProductFormScreen extends StatelessWidget {
     var cubit = BlocProvider.of<ProductCubit>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text((isNew) ? "Create Product" : "Product id:${product.id}"),
+        title: Text((widget.isNew)
+            ? "Create Product"
+            : "Product id:${widget.product.id}"),
         actions: [
           IconButton(
               onPressed: () async {
                 if (form.currentState!.validate()) {
-                  product.name = name.text;
-                  product.description = description.text;
-                  if (isNew) {
-                    await cubit.create(product);
+                  widget.product.name = name.text;
+                  widget.product.description = description.text;
+                  if (widget.isNew) {
+                    await cubit.create(widget.product);
                   } else {
-                    await cubit.update(product);
+                    await cubit.update(widget.product);
                   }
                 }
               },
